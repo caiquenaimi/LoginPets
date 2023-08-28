@@ -50,10 +50,7 @@ class PetList {
         showRender();
     }
 
-    editPet(id) {
 
-
-    }
 
 }
 
@@ -67,9 +64,6 @@ function addPet() {
     const pet = new Pet(tutorName, petName, species, image, date);
 
     petList.add(pet);
-
-
-
 }
 
 const petList = new PetList();
@@ -105,8 +99,11 @@ function showRender() {
             <p>Espécie: ${pet.species}</p>
             <p>Idade: ${pet.age}</p>
             <p>Data de nascimento: ${formatDate(pet.date)}</p>
-            <button id= "edit" onclick="editPet(${pet.id})">✏️Editar</button>
-            <button id="remove" onclick="removePet(${pet.id})">🗑️Remover</button>
+        <div id="buttons">
+        <button id= "edit" onclick="editPet(${pet.id})">✏️Editar</button>
+        <button id="remove" onclick="removePet(${pet.id})">🗑️Remover</button><br>
+        <button id="favorite" onclick="favoritePet(${pet.id})">💗</button>
+        </div>
         </div>
         `
     });
@@ -122,7 +119,7 @@ document.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
         addPet();
     } else {
-        return;
+        editPet();
     };
 });
 
@@ -224,4 +221,23 @@ function clearFields() {
 
 function removePet(id) {
     petList.removePet(id);
+}
+
+function editPet(id) {
+    const pet = petList.pets.find((pet) => pet.id === id);
+
+    document.getElementById("tutor-name").value = pet.tutorName;
+    document.getElementById("pet-name").value = pet.petName;
+    document.getElementById("species").value = pet.species;
+    document.getElementById("image").value = pet.image;
+    document.getElementById("date").value = pet.date;
+
+    document.getElementById("btn-add").classList.add("hidden");
+    document.getElementById("btn-add").classList.remove("hidden");
+    removePet(id);
+    showLogin();
+}
+
+function favoritePet() {
+    document.getElementById("favorite").classList.toggle("favorite");
 }
