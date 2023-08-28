@@ -30,12 +30,38 @@ class PetList {
         }
         else {
             this.pets.push(param);
+            showRender();
+            clearFields();
         }
     }
 
 }
 
+function addPet() {
+    const tutorName = document.getElementById("tutor-name").value;
+    const petName = document.getElementById("pet-name").value;
+    const species = document.getElementById("species").value;
+    const image = document.getElementById("image").value;
+    const date = document.getElementById("date").value;
+
+    const pet = new Pet(tutorName, petName, species, image, date);
+
+    petList.add(pet);
+
+
+}
+
 const petList = new PetList();
+
+function sendMsg(msg, type, inputId) {
+    const inputIdError = document.getElementById(`${inputId}-error`);
+
+    if (msg) {
+        inputIdError.innerHTML = `<p class="${type}">${msg}</p>`;
+    } else {
+        inputIdError.innerHTML = "";
+    }
+}
 
 function verifyInputs() {
     let tutorName = document.getElementById("tutorName").value;
@@ -83,4 +109,12 @@ function verifyInputs() {
     }
 
     return flag;
+}
+
+function clearFields() {
+    document.getElementById("tutor-name").value = "";
+    document.getElementById("pet-name").value = "";
+    document.getElementById("species").value = "";
+    document.getElementById("image").value = "";
+    document.getElementById("date").value = "";
 }
