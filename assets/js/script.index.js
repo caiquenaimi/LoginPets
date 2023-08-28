@@ -98,11 +98,29 @@ function isURLValid(url) {
 }
 
 function showList() {
-    document.getElementById("form-container").classList.add("hidden");
+    if (petList.pets.lenght == undefined ) {
+        msgEmpty("Não há pets cadastrados" ,"error");
+        return;
+    }
+    else {
+        console.log("o",petList.pets.lenght);
+        console.log("Passou pela funcao showList()");
+        document.getElementById("form-container").classList.add("hidden");
+    }
 }
 
 function showLogin() {
     document.getElementById("form-container").classList.remove("hidden");
+}
+
+function msgEmpty(msg, type) {
+    const msgEmpty = document.getElementById("list-empty");
+
+    msgEmpty.innerHTML = `<p class="${type}">${msg}</p>`;
+
+    setTimeout(() => {
+        msgEmpty.innerHTML = "";
+    }, 3000);
 }
 
 

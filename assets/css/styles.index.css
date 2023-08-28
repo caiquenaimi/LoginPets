@@ -45,6 +45,11 @@ footer {
     position: fixed;
 }
 
+#list-empty {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
 #login,
 #exibition {
     border: none;
