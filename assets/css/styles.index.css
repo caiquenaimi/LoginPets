@@ -41,7 +41,23 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 0;
+}
+
+#div-count {
+    color: white;
+    background-color: white;
+    display: block;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    padding: 10px;
+    border-radius: 8px 0px 0px 0px;
+    z-index: 1;
+}
+
+#div-count p {
+    color: black;
+    font-weight: bold;
 }
 
 #list-empty {

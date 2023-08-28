@@ -35,8 +35,6 @@ class PetList {
         }
     }
 
-
-
     countPets() {
         return this.pets.length;
     }
@@ -94,7 +92,8 @@ function showRender() {
         render.innerHTML = msg;
     });
 
-
+    const contador = petList.countPets()
+    document.getElementById("contador").innerHTML = `Total: ${contador}`;
 }
 
 function isURLValid(url) {
