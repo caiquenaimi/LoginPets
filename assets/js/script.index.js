@@ -77,7 +77,7 @@ function formatDate(date) {
 }
 function showRender() {
     let msg = "";
-    let render = document.getElementById("result");
+    let render = document.getElementById("pet-list");
     petList.pets.forEach(pet => {
         msg += `
         <div class="card" style="width: 18rem;">
@@ -111,11 +111,13 @@ function showList() {
     }
     else {
         document.getElementById("form-container").classList.add("hidden");
+        document.getElementById("sub-div").classList.remove("hidden");
     }
 }
 
 function showLogin() {
     document.getElementById("form-container").classList.remove("hidden");
+    document.getElementById("sub-div").classList.add("hidden");
 }
 
 function msgEmpty(msg, type) {
