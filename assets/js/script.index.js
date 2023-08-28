@@ -31,7 +31,7 @@ class PetList {
         }
         else {
             this.pets.push(param);
-            clearFields();
+           /*  clearFields(); */
         }
     }
 

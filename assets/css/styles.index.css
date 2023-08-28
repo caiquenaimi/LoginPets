@@ -62,7 +62,7 @@ footer {
 
 #pet-list {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 #div-count {
