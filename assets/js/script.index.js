@@ -37,8 +37,9 @@ class PetList {
             return;
         }
         else {
+            msgEmpty("Pet cadastrado com sucesso", "success")
             this.pets.push(param);
-            /*      clearFields(); */
+            clearFields();
             showRender();
         }
     }
@@ -83,7 +84,6 @@ function sendMsg(msg, type, inputId) {
 }
 
 function formatDate(date) {
-    console.log("Passou pela funcao dateinPTBR()");
 
     let dateArray = date.split("-");
     let datePTBR = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
