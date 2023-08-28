@@ -10,8 +10,16 @@
 </head>
 
 <body>
-    <h1>Cadastro de pets</h1>
+    <header>
+        <div id="header-container">
+            <h1>Clinica Veterinária</h1>
+            <button onclick="showLogin()" id="login">Cadastro</button>
+            <button onclick="showList()" id="exibition">Exibição</button>
+        </div>
+    </header>
+
     <div id="form-container">
+        <h1>Cadastro de pets</h1>
         <label for="tutor-name">Tutor:</label>
         <input id="tutor-name" type="text">
         <p id="tutor-name-error"></p>
@@ -36,8 +44,13 @@
         <input id="date" type="date">
         <p id="date-error"></p>
 
+        <button class="button" onclick="addPet()">Cadastrar</button>
     </div>
-    <button class="button" onclick="addPet()">Cadastrar</button>
+<!-- 
+    <div id="result">
+        
+    </div> -->
+    <footer>Clinica Veterinária ©️Todos Direitos Reservados</footer>
 </body>
 
 </html>

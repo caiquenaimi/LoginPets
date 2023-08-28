@@ -17,6 +17,7 @@ class Pet {
         return (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) ? age - 1 : age;
     }
 
+
 }
 
 class PetList {
@@ -30,7 +31,6 @@ class PetList {
         }
         else {
             this.pets.push(param);
-            showRender();
             clearFields();
         }
     }
@@ -48,13 +48,14 @@ function addPet() {
 
     petList.add(pet);
 
-
+    showRender();
 }
 
 const petList = new PetList();
 
 function sendMsg(msg, type, inputId) {
     const inputIdError = document.getElementById(`${inputId}-error`);
+
 
     if (msg) {
         inputIdError.innerHTML = `<p class="${type}">${msg}</p>`;
@@ -63,9 +64,51 @@ function sendMsg(msg, type, inputId) {
     }
 }
 
+function formatDate(date) {
+    console.log("Passou pela funcao dateinPTBR()");
+
+    let dateArray = date.split("-");
+    let datePTBR = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+    return datePTBR;
+}
+function showRender() {
+    let msg = "";
+    let render = document.getElementById("result");
+    petList.pets.forEach(pet => {
+        msg += `
+        <div class="card" style="width: 18rem;">
+        <img src="${pet.image}" alt="${pet.name}">
+                <h2>${pet.name}</h2>
+                <p>Tutor: ${pet.tutorName}</p>
+                <p>Espécie: ${pet.species}</p>
+                <p>Idade: ${pet.age}</p>
+                <p>Data de nascimento: ${formatDate(pet.date)}</p>
+        </div>
+        `;
+        render.innerHTML = msg;
+    });
+}
+
+function isURLValid(url) {
+    if (url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".gif") || url.endsWith(".jpeg")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function showList() {
+    document.getElementById("form-container").classList.add("hidden");
+}
+
+function showLogin() {
+    document.getElementById("form-container").classList.remove("hidden");
+}
+
+
 function verifyInputs() {
-    let tutorName = document.getElementById("tutorName").value;
-    let petName = document.getElementById("petName").value;
+    let tutorName = document.getElementById("tutor-name").value;
+    let petName = document.getElementById("pet-name").value;
     let species = document.getElementById("species").value;
     let image = document.getElementById("image").value;
     let date = document.getElementById("date").value;
@@ -73,17 +116,17 @@ function verifyInputs() {
     let flag = false;
 
     if (tutorName == "") {
-        sendMsg("Campo obrigatório", "error", "tutorName");
+        sendMsg("Campo obrigatório", "error", "tutor-name");
         flag = true;
     } else {
-        sendMsg("", "", "name");
+        sendMsg("", "", "tutor-name");
     }
 
     if (petName == "") {
-        sendMsg("Campo obrigatório", "error", "petName");
+        sendMsg("Campo obrigatório", "error", "pet-name");
         flag = true;
     } else {
-        sendMsg("", "", "petName");
+        sendMsg("", "", "pet-name");
     }
 
     if (species == "") {
@@ -96,7 +139,11 @@ function verifyInputs() {
     if (image == "") {
         sendMsg("Campo obrigatório", "error", "image");
         flag = true;
-    } else {
+    } else if (!isURLValid(image)) {
+        sendMsg("URL inválida", "error", "image");
+        flag = true;
+    }
+    else {
         sendMsg("", "", "image");
     }
 
