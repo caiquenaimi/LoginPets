@@ -1,3 +1,5 @@
+let flag = false
+
 class Pet {
     constructor(tutorName, petName, species, image, date, age) {
         this.tutorName = tutorName;
@@ -7,6 +9,7 @@ class Pet {
         this.date = date;
         this.age = this.calculateAge();
         this.id = this.createId();
+        this.status = false;
     }
 
     calculateAge() {
@@ -35,7 +38,7 @@ class PetList {
         }
         else {
             this.pets.push(param);
-            clearFields();
+            /*      clearFields(); */
             showRender();
         }
     }
@@ -102,7 +105,18 @@ function showRender() {
         <div id="buttons">
         <button id= "edit" onclick="editPet(${pet.id})">✏️Editar</button>
         <button id="remove" onclick="removePet(${pet.id})">🗑️Remover</button><br>
-        <button id="favorite" onclick="favoritePet(${pet.id})">💗</button>
+        <button style="
+        margin-top: 1.5rem;
+        height: 50px;
+        padding: 1rem;
+        border: none;
+        border-radius: 5px;
+        color: whitesmoke;
+        font-size: 1.2rem;
+        font-weight: 500;
+        cursor: pointer;
+        "
+        id="favorite-${pet.id}" class="${pet.status ? 'favorite' : ''}" onclick="favoritePet(${pet.id})">💗</button>
         </div>
         </div>
         `
@@ -238,6 +252,21 @@ function editPet(id) {
     showLogin();
 }
 
-function favoritePet() {
-    document.getElementById("favorite").classList.toggle("favorite");
+function favoritePet(petId) {
+    const petIndex = petList.pets.findIndex(pet => pet.id === petId);
+
+    if (petIndex !== -1) {
+        const pet = petList.pets[petIndex];
+
+        if (!pet.status) {
+            pet.status = true;
+
+            petList.pets.splice(petIndex, 1);
+            petList.pets.unshift(pet);
+        } else {
+            pet.status = false;
+        }
+
+        showRender();
+    }
 }
