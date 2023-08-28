@@ -36,6 +36,7 @@ class PetList {
         else {
             this.pets.push(param);
             clearFields();
+            showRender();
         }
     }
 
@@ -44,6 +45,15 @@ class PetList {
     }
 
 
+    removePet(id) {
+        this.pets = this.pets.filter((pet) => pet.id !== id);
+        showRender();
+    }
+
+    editPet(id) {
+
+
+    }
 
 }
 
@@ -58,7 +68,6 @@ function addPet() {
 
     petList.add(pet);
 
-    showRender();
 
 
 }
@@ -84,23 +93,25 @@ function formatDate(date) {
     return datePTBR;
 }
 function showRender() {
-    let msg = "";
-    let render = document.getElementById("pet-list");
-    petList.pets.forEach(pet => {
-        msg += `
+
+    let content = "";
+
+    petList.pets.forEach((pet) => {
+        content += `
         <div class="card" style="width: 18rem;">
-        <img src="${pet.image}" alt="${pet.petName}">
-                <h2>${pet.petName}</h2>
-                <p>Tutor: ${pet.tutorName}</p>
-                <p>Espécie: ${pet.species}</p>
-                <p>Idade: ${pet.age}</p>
-                <p>Data de nascimento: ${formatDate(pet.date)}</p>
-                <button id= "edit" onclick="editPet(${pet.id})">✏️Editar</button>
-                <button id="remove" onclick="removePet(${pet.id})">🗑️Remover</button>
+            <img src="${pet.image}" alt="${pet.petName}">
+            <h2>${pet.petName}</h2>
+            <p>Tutor: ${pet.tutorName}</p>
+            <p>Espécie: ${pet.species}</p>
+            <p>Idade: ${pet.age}</p>
+            <p>Data de nascimento: ${formatDate(pet.date)}</p>
+            <button id= "edit" onclick="editPet(${pet.id})">✏️Editar</button>
+            <button id="remove" onclick="removePet(${pet.id})">🗑️Remover</button>
         </div>
-        `;
-        render.innerHTML = msg;
+        `
     });
+
+    document.getElementById("pet-list").innerHTML = content;
 
     const contador = petList.countPets()
     document.getElementById("contador").innerHTML = `Total: ${contador}`;
@@ -212,6 +223,5 @@ function clearFields() {
 
 
 function removePet(id) {
-    petList.pets = petList.pets.filter(pet => { pet.id != id });
-    showRender();
+    petList.removePet(id);
 }
