@@ -35,6 +35,12 @@ class PetList {
         }
     }
 
+
+
+    countPets() {
+        return this.pets.length;
+    }
+
 }
 
 function addPet() {
@@ -77,8 +83,8 @@ function showRender() {
     petList.pets.forEach(pet => {
         msg += `
         <div class="card" style="width: 18rem;">
-        <img src="${pet.image}" alt="${pet.name}">
-                <h2>${pet.name}</h2>
+        <img src="${pet.image}" alt="${pet.petName}">
+                <h2>${pet.petName}</h2>
                 <p>Tutor: ${pet.tutorName}</p>
                 <p>Espécie: ${pet.species}</p>
                 <p>Idade: ${pet.age}</p>
@@ -87,6 +93,8 @@ function showRender() {
         `;
         render.innerHTML = msg;
     });
+
+
 }
 
 function isURLValid(url) {
@@ -98,13 +106,11 @@ function isURLValid(url) {
 }
 
 function showList() {
-    if (petList.pets.lenght == undefined ) {
-        msgEmpty("Não há pets cadastrados" ,"error");
+    if (petList.countPets() == 0) {
+        msgEmpty("Não há pets cadastrados", "error");
         return;
     }
     else {
-        console.log("o",petList.pets.lenght);
-        console.log("Passou pela funcao showList()");
         document.getElementById("form-container").classList.add("hidden");
     }
 }
