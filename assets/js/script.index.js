@@ -6,6 +6,7 @@ class Pet {
         this.image = image;
         this.date = date;
         this.age = this.calculateAge();
+        this.id = this.createId();
     }
 
     calculateAge() {
@@ -17,6 +18,9 @@ class Pet {
         return (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) ? age - 1 : age;
     }
 
+    createId() {
+        return Math.floor(Math.random() * 1000);
+    }
 
 }
 
@@ -31,13 +35,15 @@ class PetList {
         }
         else {
             this.pets.push(param);
-           /*  clearFields(); */
+            clearFields();
         }
     }
 
     countPets() {
         return this.pets.length;
     }
+
+
 
 }
 
@@ -53,6 +59,8 @@ function addPet() {
     petList.add(pet);
 
     showRender();
+
+
 }
 
 const petList = new PetList();
@@ -87,6 +95,8 @@ function showRender() {
                 <p>Espécie: ${pet.species}</p>
                 <p>Idade: ${pet.age}</p>
                 <p>Data de nascimento: ${formatDate(pet.date)}</p>
+                <button id= "edit" onclick="editPet(${pet.id})">✏️Editar</button>
+                <button id="remove" onclick="removePet(${pet.id})">🗑️Remover</button>
         </div>
         `;
         render.innerHTML = msg;
@@ -94,7 +104,16 @@ function showRender() {
 
     const contador = petList.countPets()
     document.getElementById("contador").innerHTML = `Total: ${contador}`;
+
 }
+
+document.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        addPet();
+    } else {
+        return;
+    };
+});
 
 function isURLValid(url) {
     if (url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".gif") || url.endsWith(".jpeg")) {
@@ -189,4 +208,10 @@ function clearFields() {
     document.getElementById("species").value = "";
     document.getElementById("image").value = "";
     document.getElementById("date").value = "";
+}
+
+
+function removePet(id) {
+    petList.pets = petList.pets.filter(pet => { pet.id != id });
+    showRender();
 }
